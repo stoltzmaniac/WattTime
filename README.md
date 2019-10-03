@@ -3,8 +3,8 @@ Creating an easier way to interact with WattTime API v2 (api2.watttime.org) The 
 
 Written in Python 3.7, should work with 3.6+
 
-Get your dependencies installed with
-`pip install -r requirements.txt`
+On PyPI
+`pip install watttime`
 
 ## To use:  
 
@@ -12,6 +12,8 @@ If you already have a username and password registered with the API v2, then no 
 
 
 ```
+from watttime.api import WattTime
+
 w = WattTime(username=<DesiredUsername>, password=<YourDesiredPassword>)
 w.register(email=<your@email.com>, organization=<your organization>)
 ``` 
