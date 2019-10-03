@@ -3,7 +3,7 @@ import base64
 
 
 class WattTime:
-    def __init__(self, username, password):
+    def __init__(self, username: str, password: str):
         self.username = username
         self.password = password
         self.token = None
@@ -30,7 +30,7 @@ class WattTime:
             print('No token received!!!')
         pass
 
-    def get_balancing_authority(self, latitude, longitude):
+    def get_balancing_authority(self, latitude: str, longitude: str):
         req = requests.get(f'https://api2.watttime.org/v2/ba-from-loc/?latitude={latitude}&longitude={longitude}',
                            headers=self.headers)
 
@@ -75,7 +75,22 @@ class WattTime:
         print(data)
         return data
 
-    def register(self, email, organization):
+    @staticmethod
+    def list_balancing_authorities():
+        ba_list = ['AEC', 'AECI', 'AESO', 'AVA', 'AZPS', 'BANC', 'BCTC',
+                   'BPAT', 'CISO', 'CFE', 'CHPD', 'CISO', 'CPLE', 'CPLW',
+                   'DEAA', 'DOPD', 'DUK', 'EEI', 'EPE', 'ERCO', 'FMPP',
+                   'FPC', 'FPL', 'GCPD', 'GRID', 'GRIF', 'GRMA', 'GVL',
+                   'GWA', 'HGMA', 'HQT', 'HST', 'IESO', 'IID', 'IPCO',
+                   'ISNE', 'JEA', 'LDWP', 'LGEE', 'MHEB', 'MISO', 'NBSO',
+                   'NEVP', 'NSB', 'NWMT', 'NYIS', 'OVEC', 'PACE', 'PACW',
+                   'PGE', 'PJM', 'PNM', 'PSCO', 'PSEI', 'SC', 'SCEG',
+                   'SCL', 'SEC', 'SEPA', 'SOCO', 'SPA', 'SPC', 'SRP',
+                   'SWPP', 'TAL', 'TEC', 'TEPC', 'TIDC', 'TPWR', 'TVA',
+                   'WACM', 'WALC', 'WAUW', 'WWA', 'YAD']
+        return ba_list
+
+    def register(self, email: str, organization: str):
         values = f"""
                   {{
                     "username": "{self.username}",
@@ -99,3 +114,4 @@ class WattTime:
     def reset_password(self):
         req = requests.get(f'https://api2.watttime.org/v2/password/?username={self.username}')
         print(req.json())
+        pass
