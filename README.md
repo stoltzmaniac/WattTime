@@ -1,9 +1,10 @@
 # WattTime API v2 - Easy to Use Model
 Creating an easier way to interact with WattTime API v2 (api2.watttime.org) The API documentation is at: <https://watttimeapiv2.docs.apiary.io> and the Watttime organization is really cool, so check them out at <https://www.watttime.org/>.
 
-This was written for Python 3.6+. You need the `requests` library, I am not adding a `requirements.txt` but if you need it:
+Written in Python 3.7, should work with 3.6+
 
-`pip install requests`
+Get your dependencies installed with
+`pip install -r requirements.txt`
 
 ## To use:  
 
