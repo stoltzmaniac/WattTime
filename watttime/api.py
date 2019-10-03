@@ -75,6 +75,65 @@ class WattTime:
         print(data)
         return data
 
+    def get_historical_emissions_zip(self, version='all', **kwargs):
+
+        # Potentially being passed in by user as parameters
+        ba = kwargs.get('ba')
+
+        if ba:
+            if self.balancing_authority and self.balancing_authority != ba:
+                print(
+                    f'WARNING: existing {self.balancing_authority} being overwritten to {ba} because it is being explicitly passed into the function.')
+            self.balancing_authority = ba
+
+        if not self.balancing_authority:
+            print("Please pass either a balancing authority (as ba) OR latitude & longitude into the function")
+            return None
+
+        print(f'Getting data for balancing authority: {self.balancing_authority}')
+        req_url = f'https://api2.watttime.org/v2/historical/?ba={self.balancing_authority}&version={version}'
+        print(f"URL requested = {req_url}")
+        req = requests.get(req_url, headers=self.headers)
+        return req # Not sure what this response looks like
+
+    def get_detailed_grid_data(self, starttime, endtime, style='all', **kwargs):
+
+        # Potentially being passed in by user as parameters
+        latitude = kwargs.get('latitude')
+        longitude = kwargs.get('longitude')
+        ba = kwargs.get('ba')
+        moerversion = kwargs.get('moerversion')
+
+        if not starttime:
+            print('Pass starttime parameter')
+            return None
+        if not endtime:
+            print('Pass endtime parameter')
+            return None
+
+        if ba:
+            if self.balancing_authority and self.balancing_authority != ba:
+                print(
+                    f'WARNING: existing {self.balancing_authority} being overwritten to {ba} because it is being explicitly passed into the function.')
+            self.balancing_authority = ba
+
+        elif latitude and longitude:
+            print(f'No balancing authority passed, getting data for\n    latitude={latitude}\n    longitude={longitude}')
+            # Setting self.balancing_authority
+            self.get_balancing_authority(latitude, longitude)
+
+        if not self.balancing_authority:
+            print("Please pass either a balancing authority (as ba) OR latitude & longitude into the function")
+            return None
+
+        print(f'Getting data for balancing authority: {self.balancing_authority}')
+        req_url = f'https://api2.watttime.org/v2/data/?ba={ba}&starttime={starttime}&endtime={endtime}&style={style}'
+        print(f"URL requested = {req_url}")
+        req = requests.get(req_url, headers=self.headers)
+        data = req.json()
+        print(data)
+        return data
+
     @staticmethod
     def list_balancing_authorities():
         ba_list = ['AEC', 'AECI', 'AESO', 'AVA', 'AZPS', 'BANC', 'BCTC',
