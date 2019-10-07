@@ -92,3 +92,9 @@ w.get_balancing_authority(latitude=37.871667, longitude=-122.272778)
 ```
 
 Then you may proceed as normal!
+
+
+To run tests, in console run:    
+```
+pytest
+```

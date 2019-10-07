@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="watttime",
-    version="0.0.3",
+    version="0.0.5",
     author="Scott Stoltzman",
     author_email="scott@stoltzmanconsulting.com",
     description="A package to access the WattTime API v2",
