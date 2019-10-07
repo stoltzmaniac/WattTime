@@ -26,10 +26,13 @@ def test_reset_password():
 
 def test_get_token():
     w = WattTime('user', 'password')
-    data = w.get_token()
-    token = data.get('token')
 
-    if not token:
+    if w.token:
+        raise('Already started with token, need to reinstantiate object')
+
+    data = w.get_token()
+
+    if not w.token:
         raise('No token returned')
 
-    assert(len(token) > 50)
+    assert(len(w.token) > 50)
